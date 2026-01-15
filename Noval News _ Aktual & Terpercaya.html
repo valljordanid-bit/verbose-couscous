@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://127.0.0.1:5500/WEB.HTML# -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noval News | Aktual &amp; Terpercaya</title>
+    <style>
+        /* --- 1. RESET & VARIABLES --- */
+        :root {
+            --primary-color: #0056b3;
+            /* Biru Profesional */
+            --accent-color: #e63946;
+            /* Merah untuk Breaking News */
+            --bg-color: #f8f9fa;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- 2. HEADER & NAVIGATION --- */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* --- 3. HERO SECTION (HEADLINE) --- */
+        .hero {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .main-headline {
+            position: relative;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            /* Fallback */
+        }
+
+        .main-headline img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: transform 0.5s ease;
+        }
+
+        .main-headline:hover img {
+            transform: scale(1.05);
+        }
+
+        .headline-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            width: 100%;
+            color: var(--white);
+        }
+
+        .tag {
+            background: var(--accent-color);
+            padding: 4px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .headline-content h1 {
+            margin-top: 10px;
+            font-size: 2rem;
+        }
+
+        /* --- 4. NEWS GRID (LATEST NEWS) --- */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+            font-size: 1.5rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            /* Untuk animasi scroll */
+            transform: translateY(20px);
+        }
+
+        .news-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .card-excerpt {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* --- 5. FOOTER --- */
+        footer {
+            background: #1a1a1a;
+            color: var(--white);
+            padding: 40px 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        /* --- 6. RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+                animation: slideDown 0.3s ease;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .headline-content h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">Noval<span>News</span></div>
+            <ul class="nav-links">
+                <li><a href="http://127.0.0.1:5500/WEB.HTML#">Nasional</a></li>
+                <li><a href="http://127.0.0.1:5500/WEB.HTML#">Internasional</a></li>
+                <li><a href="http://127.0.0.1:5500/WEB.HTML#">Teknologi</a></li>
+                <li><a href="http://127.0.0.1:5500/WEB.HTML#">Olahraga</a></li>
+                <li><a href="http://127.0.0.1:5500/WEB.HTML#">Opini</a></li>
+            </ul>
+            <div class="hamburger">☰</div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="main-headline">
+            <a href="http://127.0.0.1:5500/WEB.HTML#">
+                <img src="./Noval News _ Aktual &amp; Terpercaya_files/photo-1504711434969-e33886168f5c" alt="Berita Utama">
+                <div class="headline-content">
+                    <span class="tag">Breaking News</span>
+                    <h1>Pemerintah Luncurkan Satelit Baru untuk Pemerataan Internet di Pelosok</h1>
+                    <p>Senin, 15 Januari 2026</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Berita Terbaru</h2>
+        <div class="news-grid">
+
+            <article class="news-card visible">
+                <div class="card-img">
+                    <img src="./Noval News _ Aktual &amp; Terpercaya_files/photo-1495020689067-958852a7765e" alt="News 1">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span>Teknologi</span>
+                        <span>2 Jam lalu</span>
+                    </div>
+                    <h3 class="card-title"><a href="http://127.0.0.1:5500/WEB.HTML#">Perkembangan AI dalam Dunia Jurnalistik</a></h3>
+                    <p class="card-excerpt">Kecerdasan buatan kini membantu jurnalis dalam mengolah data besar...</p>
+                    <a href="http://127.0.0.1:5500/WEB.HTML#" class="read-more">Baca Selengkapnya →</a>
+                </div>
+            </article>
+
+            <article class="news-card visible">
+                <div class="card-img">
+                    <img src="./Noval News _ Aktual &amp; Terpercaya_files/photo-1461896836934-ffe607ba8211" alt="News 2">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span>Olahraga</span>
+                        <span>4 Jam lalu</span>
+                    </div>
+                    <h3 class="card-title"><a href="http://127.0.0.1:5500/WEB.HTML#">Timnas Indonesia Lolos ke Putaran Final</a></h3>
+                    <p class="card-excerpt">Kemenangan dramatis di menit akhir memastikan langkah tim garuda...</p>
+                    <a href="http://127.0.0.1:5500/WEB.HTML#" class="read-more">Baca Selengkapnya →</a>
+                </div>
+            </article>
+
+            <article class="news-card visible">
+                <div class="card-img">
+                    <img src="./Noval News _ Aktual &amp; Terpercaya_files/photo-1486312338219-ce68d2c6f44d" alt="News 3">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span>Ekonomi</span>
+                        <span>5 Jam lalu</span>
+                    </div>
+                    <h3 class="card-title"><a href="http://127.0.0.1:5500/WEB.HTML#">IHSG Menguat di Penutupan Sesi I</a></h3>
+                    <p class="card-excerpt">Sentimen positif pasar global mendorong penguatan indeks harga saham...</p>
+                    <a href="http://127.0.0.1:5500/WEB.HTML#" class="read-more">Baca Selengkapnya →</a>
+                </div>
+            </article>
+
+            <article class="news-card visible">
+                <div class="card-img">
+                    <img src="./Noval News _ Aktual &amp; Terpercaya_files/photo-1557804506-669a67965ba0" alt="News 4">
+                </div>
+                <div class="card-body">
+                    <div class="card-meta">
+                        <span>Bisnis</span>
+                        <span>6 Jam lalu</span>
+                    </div>
+                    <h3 class="card-title"><a href="http://127.0.0.1:5500/WEB.HTML#">Strategi Startup Menghadapi Resesi</a></h3>
+                    <p class="card-excerpt">Para founder berbagi tips efisiensi tanpa harus melakukan PHK massal...</p>
+                    <a href="http://127.0.0.1:5500/WEB.HTML#" class="read-more">Baca Selengkapnya →</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Noval News. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // 2. Scroll Animation (Fade In)
+        // Fungsi ini membuat elemen muncul perlahan saat di-scroll (Smooth)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        const cards = document.querySelectorAll('.news-card');
+        cards.forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
